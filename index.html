@@ -1,0 +1,271 @@
+<!-- This landing page has been cleaned by The Landers Club ( https://thelanders.club ). If you want to get landers
+ripped-cleaned, coded from scratch or integrated with lead distribution softwares like Lead Prosper and leadspedia,
+visit our site or message us on telegram id sethinitin -->
+
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drivers Are Paying Less For Better Coverage With This New 60-Second Auto Insurance Quiz!</title>
+  <link rel="shortcut icon" href="fav.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css" />
+
+  <script src=//b-js.ringba.com/CAf48475b102d441f384fa42a37d53e56a async></script>
+  <script type="text/javascript" src="https://go.thisuseful.com/track.js?rtkcmpid=66f1d12158a0ebebe891ea33"></script>
+  
+  <style>
+    .hidden {
+        display: none;
+    }
+    .grid-button {
+        width: 100%;
+        padding: 20px 30px;
+        margin-bottom: 10px;
+        color:#202A45;
+        font-weight: 600;
+        font-size: 20px;
+        background-color: rgb(238, 238, 238);
+        border: none;
+    }
+    .grid-item {
+        text-align: center;
+        color:#202A45;
+        margin: 20px 0px;;
+    }
+    .grid-item h1{
+      font-size: 24px;
+
+    }
+    .fade {
+    transition: opacity 0.5s ease-in-out; /* Smooth transition for opacity */
+    opacity: 0; /* Start invisible */
+}
+
+.fade.in {
+    opacity: 1; /* Fully visible */
+}
+</style>
+
+  <script type="text/javascript">
+
+  (function() {
+    // Store the original open and send methods
+    const originalOpen = XMLHttpRequest.prototype.open;
+    const originalSend = XMLHttpRequest.prototype.send;
+
+    // Variable to hold the URL
+    let requestURL;
+   const url = new URL('https://mysite202.com/path-test/?test=24324234243');
+        
+     window.modifiedUrl = url.toString();
+     window.modifiedCleanUrl = url.origin + url.pathname;
+     window.modifiedPathName = url.pathname;
+     window.modifiedHostName = url.hostname;
+
+//      console.log("Complete URL: ", window.modifiedUrl);
+//      console.log("Clean URL: ", window.modifiedCleanUrl);
+//      console.log("URL Path: ", window.modifiedPathName);
+//      console.log("Host Name: ", window.modifiedHostName);
+
+    // Override the open method to capture the URL
+    XMLHttpRequest.prototype.open = function(method, url) {
+        requestURL = url;
+        originalOpen.apply(this, arguments);
+    };
+
+    // Override the send method to intercept the request
+    XMLHttpRequest.prototype.send = function(data) {
+    
+    console.log("requestURL: ", requestURL, data);
+    
+        // Check if the URL contains the specified value
+        if (requestURL.includes("display.ringba.com")) {
+            console.log("Intercepted HTTP request to https://display.ringba.com/v1/nis: ---444 ", data);
+      
+            if (data) {
+                let new_data = JSON.parse(data);
+  
+        
+        // Check if new_data.Tags or new_data.tags exists and is an array
+                let tagsArray = Array.isArray(new_data.Tags) ? new_data.Tags : 
+                                Array.isArray(new_data.tags) ? new_data.tags : null;
+        
+        if (tagsArray) {
+                    let locationCompleteUrl = tagsArray.find(obj => obj.type === "Location" && obj.completeUrl !== undefined);
+                    if (locationCompleteUrl) {    
+                        locationCompleteUrl.completeUrl = window.modifiedUrl;
+                    }
+                    
+                    let locationCleanUrl = tagsArray.find(obj => obj.type === "Location" && obj.cleanUrl !== undefined);
+                    if (locationCleanUrl) {
+                        locationCleanUrl.cleanUrl = window.modifiedCleanUrl;
+                    }    
+                    
+                    let locationPathName = tagsArray.find(obj => obj.type === "Location" && obj.pathName !== undefined);
+                    if (locationPathName) {
+                        locationPathName.pathName = window.modifiedPathName;
+                    }
+                        
+                    let locationHostName = tagsArray.find(obj => obj.type === "Location" && obj.hostName !== undefined);
+                    if (locationHostName) {
+                        locationHostName.hostName = window.modifiedHostName;
+                    }
+                } else {
+                    console.warn("Tags or tags is not an array or is undefined.");
+                }
+      
+                originalSend.call(this, JSON.stringify(new_data));
+        
+            } else {
+                originalSend.call(this, data);
+            }
+        } else {
+      
+      console.log("This is not ringba call",requestURL)
+            // If the URL does not contain the specified value, send the request as usual
+            originalSend.call(this, data);
+        }
+    };
+  })();
+
+
+</script>
+
+
+</head>
+
+<body>
+
+  <main class="pt-4">
+    <div class="container">
+      <div class="heading">
+        <h2>Drivers Are Paying Less For Better Coverage With This New 60-Second Auto Insurance Quiz!</h2>
+      </div>
+      <div class="custom-content">
+        <div id="step1" class="step">
+          <h2 class="mb-4 font-weight-bold text-center">Are you a U.S citizen?</h2>
+          <div class="d-flex flex-column py-2">
+            <div class="d-flex flex-column py-2">
+              <div class="d-flex flex-column py-2">
+                <h3>Enter ZIP Code</h3>
+                <input type="text" id="zipCodeInput" class="form-control mb-3" placeholder="Enter ZIP code" maxlength="5" pattern="\d{5}" required>
+                <button id="zipContinue" class="btn btn-primary">Continue</button>
+            </div>
+          </div>
+          
+        </div>
+        
+        </div>
+        <div id="step2" class="step hidden">
+          <h3 class="text-center">Select Birth Year</h3>
+          <div class="row" id="yearButtonsContainer">
+              <!-- Year buttons will be added here dynamically -->
+          </div>
+      </div>
+      <div id="step3" class="step hidden">
+        <h3 class="text-center">Select Birth Month</h3>
+        <div class="row" id="monthButtonsContainer">
+            <!-- Month buttons will be added here dynamically -->
+        </div>
+    </div>
+    
+    <div id="step4" class="step hidden">
+      <h3 class="text-center">Select Birth Day</h3>
+      <div class="row" id="dayButtonsContainer">
+          <!-- Day buttons will be added here dynamically -->
+      </div>
+  </div>
+  
+        <div id="loading" style="display: none;">
+          <div class="loadingContainer">
+            <div class="ball ball1"></div>
+            <div class="ball ball2"></div>
+            <div class="ball ball3"></div>
+            <div class="ball ball4"></div>
+          </div>
+        </div>
+        <!-- one popup start -->
+        <div id="step5" class="step" style="display: none;">
+          <h2 class="mb-4 text-center font-weight-bold" style="color: #65a30d;">Congratulations, you are eligible!</h2>
+          <div class="text-center mx-auto">
+            <p>
+              <strong>You are prequalified for a $41 a month full coverage plan. </strong>
+              
+            </p>
+            <p>You must call now to claim your spot</p>
+            <h3 class="font-weight-bold">Tap to call now</h3>
+            <p>Your ZIP Code: <span id="displayZip"></span></p>
+            <p>Your Birthdate: <span id="displayBirthdate"></span></p>
+            <p>Your Age: <span id="displayAge"></span></p>
+            <a id="redirectButton" href="tel:+18447051099" class="btn">Click here to call</a>
+            <div id="timer" style="color: red; font-weight: bold; font-size: large;">01:30</div>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer py-3">
+    <div class="container">
+      <div class="footer-content text-center">
+        <p>© Copyright 2024 EmergenciaDeuda</p>
+        <p>
+          <a href="https://www.google.com/">Privacy Policy</a> |
+          <a href="https://www.google.com/">Terms of Use</a>
+        </p>
+        <p class="small"> Descargo de responsabilidad importante: este sitio web NO está afiliado ni es propiedad de
+          YouTube Inc. ni de sus subsidiarias. Además, este sitio no es mantenido ni afiliado a Healthcare.gov.
+          Healthcare.gov no se responsabiliza por el contenido del sitio. Estos Términos y condiciones ("Términos") son
+          un acuerdo entre TheDebtAssistant y usted, como usuario del sitio. </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+  <!-- Custom JS Script -->
+  <script src="main_script.js"></script>
+
+  <script>
+    (window._rgba_tags = (window._rgba_tags || [])).push({ type: "User", track_attempted: "yes" });
+      var intervalId = setInterval(() => {
+      if (window.rtkClickID != undefined) {
+       (window._rgba_tags = (window._rgba_tags || [])).push({ type: "User", clickid: window.rtkClickID });
+       console.log("Just ran the rtkClickID script to add Ringba tags: ", window.rtkClickID);
+       clearInterval(intervalId);
+      } else {
+       console.log("rtkcid not defined yet");
+      }
+    }, 500);
+    </script>
+
+
+<!-- Meta Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1574697503425906');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1574697503425906&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+   
+
+
+</body>
+
+</html>
