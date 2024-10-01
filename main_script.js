@@ -1,22 +1,21 @@
 //generate Years buttons
   // Function to create year buttons from 2010 to 1970
   function createYearButtons() {
-      const container = document.getElementById('yearButtonsContainer');
-      container.innerHTML = ''; // Clear any existing buttons
-  
-      for (let year = 2010; year >= 1970; year--) {
-          // Create button element
-          const buttonDiv = document.createElement('div');
-          buttonDiv.className = 'col-4 col-md-2 grid-item';
-          const button = document.createElement('button');
-          button.className = 'btn btn-outline-primary grid-button year-button';
-          button.textContent = year;
-  
-          // Append button to the div, and div to the container
-          buttonDiv.appendChild(button);
-          container.appendChild(buttonDiv);
-      }
-  }
+    const container = document.getElementById('yearButtonsContainer');
+    container.innerHTML = ''; // Clear any existing buttons
+
+    for (let year = 2010; year >= 1970; year--) {
+        const buttonDiv = document.createElement('div');
+        buttonDiv.className = 'col-6 col-md-4 col-lg-2 grid-item'; // Adjust for responsive grid
+        const button = document.createElement('button');
+        button.className = 'btn btn-outline-primary grid-button year-button';
+        button.textContent = year;
+
+        buttonDiv.appendChild(button);
+        container.appendChild(buttonDiv);
+    }
+}
+
   
   // Call the function to create buttons on page load or at the appropriate time
   createYearButtons();
@@ -46,7 +45,7 @@ function createMonthButtons() {
     months.forEach(month => {
         // Create button element
         const buttonDiv = document.createElement('div');
-        buttonDiv.className = 'col-4 col-md-4 grid-item';
+        buttonDiv.className = 'col-6 col-md-4 col-lg-3 grid-item';
         const button = document.createElement('button');
         button.className = 'btn btn-outline-primary grid-button month-button';
         button.textContent = month.name;
@@ -72,7 +71,7 @@ function createDayButtons() {
   for (let day = 1; day <= 31; day++) {
       // Create button element
       const buttonDiv = document.createElement('div');
-      buttonDiv.className = 'col-4 col-md-2 grid-item';
+      buttonDiv.className = 'col-6 col-md-4 col-lg-2 grid-item';
       const button = document.createElement('button');
       button.className = 'btn btn-outline-primary grid-button day-button';
       button.textContent = day;
@@ -92,23 +91,24 @@ createDayButtons();
 
 //Pass The data through URL AND form steps Functionality 
 // Step Variables
-let zipCode, birthYear, birthMonth, birthDay;
+// Step Variables
+let zipCode, birthYear, birthMonth, birthDay, insuranceStatus;
 
 // Move to next step function with fade effect
 function showStep(step) {
   const currentStep = document.querySelector('.step:not(.hidden)'); // Find the currently visible step
   if (currentStep) {
-      currentStep.classList.remove('in'); // Start fading out
-      setTimeout(() => {
-          currentStep.classList.add('hidden'); // Hide after fading out
-          const nextStep = document.getElementById(`step${step}`);
-          nextStep.classList.remove('hidden'); // Show the next step
-          nextStep.classList.add('fade', 'in'); // Start fading in
-      }, 500); // Match this timeout with the CSS transition duration
-  } else {
+    currentStep.classList.remove('in'); // Start fading out
+    setTimeout(() => {
+      currentStep.classList.add('hidden'); // Hide after fading out
       const nextStep = document.getElementById(`step${step}`);
-      nextStep.classList.remove('hidden'); // Show the next step for the first time
+      nextStep.classList.remove('hidden'); // Show the next step
       nextStep.classList.add('fade', 'in'); // Start fading in
+    }, 500); // Match this timeout with the CSS transition duration
+  } else {
+    const nextStep = document.getElementById(`step${step}`);
+    nextStep.classList.remove('hidden'); // Show the next step for the first time
+    nextStep.classList.add('fade', 'in'); // Start fading in
   }
 }
 
@@ -116,35 +116,43 @@ function showStep(step) {
 document.getElementById('zipContinue').addEventListener('click', function() {
   const input = document.getElementById('zipCodeInput').value;
   if (input.length === 5 && /^\d{5}$/.test(input)) {
-      zipCode = input;
-      showStep(2);  // Move to year selection
+    zipCode = input;
+    showStep(2);  // Move to year selection
   } else {
-      alert("Please enter a valid 5-digit ZIP code");
+    alert("Please enter a valid 5-digit ZIP code");
   }
 });
 
 // Year Selection
 document.querySelectorAll('.year-button').forEach(button => {
   button.addEventListener('click', function() {
-      birthYear = this.textContent;
-      showStep(3);  // Move to month selection
+    birthYear = this.textContent;
+    showStep(3);  // Move to month selection
   });
 });
 
 // Month Selection
 document.querySelectorAll('.month-button').forEach(button => {
   button.addEventListener('click', function() {
-      birthMonth = this.getAttribute('data-value');
-      showStep(4);  // Move to day selection
+    birthMonth = this.getAttribute('data-value');
+    showStep(4);  // Move to day selection
   });
 });
 
 // Day Selection
 document.querySelectorAll('.day-button').forEach(button => {
   button.addEventListener('click', function() {
-      birthDay = this.textContent;
-      showStep(5);  // Move to final step
-      displayResults();
+    birthDay = this.textContent;
+    showStep(5);  // Move to insurance selection
+  });
+});
+
+// Insurance Selection
+document.querySelectorAll('.insured-button').forEach(button => {
+  button.addEventListener('click', function() {
+    insuranceStatus = this.getAttribute('data-value');
+    showStep(6);  // Move to final step
+    displayResults();  // Display results
   });
 });
 
@@ -163,6 +171,8 @@ function displayResults() {
   currentUrl.searchParams.set('year', birthYear);
   currentUrl.searchParams.set('month', birthMonth);
   currentUrl.searchParams.set('day', birthDay);
+  currentUrl.searchParams.set('age', age);
+  currentUrl.searchParams.set('insurance', insuranceStatus);
   window.history.pushState({}, '', currentUrl);
 }
 
@@ -172,7 +182,7 @@ function calculateAge(birthdate) {
   let age = today.getFullYear() - birthdate.getFullYear();
   const monthDiff = today.getMonth() - birthdate.getMonth();
   if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
-      age--;
+    age--;
   }
   return age;
 }
@@ -223,13 +233,13 @@ $(document).ready(function () {
         $(this).closest(".q").hide().next(".q").fadeIn();
     });
 
-    $("#step4 .btn").click(function () {
+    $("#step5 .btn").click(function () {
         $("#loading").slideDown(300); // Show loading animation
-        $("#step4").slideUp(300); // Hide Step 4
+        $("#step5").slideUp(300); // Hide Step 4
     
         setTimeout(function () {
             $("#loading").slideUp(300); // Hide loading animation
-            $("#step5").slideDown(300); // Show Step 5
+            $("#step6").slideDown(300); // Show Step 5
             countdown(1, 59); // Start countdown if needed
         }, 3000); // Delay before showing Step 5
     });

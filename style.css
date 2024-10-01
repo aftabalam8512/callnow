@@ -105,8 +105,8 @@ img {
 }
 
 
-#step5 h3,
-#step5 h5 {
+#step6 h3,
+#step6 h5 {
 	font-size: 24px;
 }
 
@@ -114,7 +114,7 @@ img {
 	color: #f43f5e;
 }
 
-#step5 .btn {
+#step6 .btn {
 	background: #0d9488;
 	padding: 15px;
 	font-size: 24px;
@@ -127,7 +127,7 @@ img {
 	border-radius: 6px;
 }
 
-#step5 .btn:hover {
+#step6 .btn:hover {
 	background: #14b8a6;
 }
 
@@ -221,7 +221,7 @@ img {
 	}
 
 	.custom-content h2,
-	#step5 h2 {
+	#step6 h2 {
 		font-size: 30px;
 	}
 }
@@ -238,11 +238,11 @@ img {
 	}
 
 	.custom-content h2,
-	#step5 h2 {
+	#step6 h2 {
 		font-size: 24px;
 	}
 
-	#step5 .btn {
+	#step6 .btn {
 		padding-inline: 10px;
 		width: 100%;
 		max-width: 270px;
@@ -274,4 +274,84 @@ img {
 }
 .grid-item {
 	text-align: center;
+}
+.hidden {
+	display: none;
+}
+.grid-button {
+width: 100%;
+padding: 20px 30px;
+margin-bottom: 10px;
+color: #202A45;
+font-weight: 500;
+font-size: 20px;
+background-color: rgb(238, 238, 238);
+border: none;
+text-align: center; /* Ensure text is centered */
+}
+
+.grid-item {
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+color: #202A45;
+margin: 20px 0;
+}
+
+.grid-item h1 {
+font-size: 24px;
+}
+
+.fade {
+transition: opacity 0.5s ease-in-out; /* Smooth transition for opacity */
+opacity: 0; /* Start invisible */
+}
+
+.fade.in {
+opacity: 1; /* Fully visible */
+}
+#zipCodeInput {
+    width: 50%; /* Adjust percentage as needed */
+    margin: 0 auto; /* Center the input field */
+}
+#zipContinue {
+    padding: 8px 16px; /* Adjust padding to make it smaller */
+    font-size: 14px; /* Reduce font size */
+    width: auto; /* Set width to auto if you want it based on content */
+    display: block;
+    margin: 10px auto; /* Center the button */
+}
+.insured-button {
+    padding: 8px 16px; /* Reduce padding to make them smaller */
+ /* Adjust the font size */
+    width: 100%; /* Set width to full for wrapping */
+    margin: 5px 0; /* Add vertical spacing between the buttons */
+    text-align: center; /* Center the button text */
+	background: #0d9488;
+	font-size: 24px;
+	line-height: 1.4;
+	font-weight: bold;
+	color: #fff;
+}
+
+.insured-button-container {
+    display: flex;
+    flex-direction: column; /* Allow buttons to wrap into multiple lines */
+    justify-content: space-between; /* Distribute buttons evenly */
+}
+
+@media (min-width: 769px) {
+    .insured-button {
+        width: 48%; /* On desktop, buttons will take up about half of the container */
+        margin-bottom: 10px; /* Add spacing below each button */
+    }
+}
+
+@media (max-width: 768px) {
+    .insured-button {
+        width: 100%; /* On mobile, buttons will be full width and stack */
+        font-size: 13px; /* Adjust font size for mobile */
+        padding: 10px 15px; /* Adjust padding for mobile */
+    }
 }
