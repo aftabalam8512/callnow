@@ -340,6 +340,17 @@ opacity: 1; /* Fully visible */
 	line-height: 1.4;
 	font-weight: bold;
 }
+/* Hide number input arrows in all browsers */
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+/* Hide default arrow buttons in Chrome, Safari, and Edge */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 
 

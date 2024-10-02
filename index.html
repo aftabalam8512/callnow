@@ -107,7 +107,7 @@
           <div class="d-flex flex-column py-2">
             <div class="d-flex flex-column py-2">
               <div class="d-flex flex-column py-2">
-                <input type="text" id="zipCodeInput" class="form-control mb-3" placeholder="Enter ZIP code" maxlength="5" pattern="\d{5}" required>
+                <input type="number" id="zipCodeInput" class="form-control mb-3" placeholder="Enter ZIP code" maxlength="5" min="0" max="99999" required>
                 <button id="zipContinue" class="btn btn-primary">Continue</button>
             </div>
           </div>
@@ -135,14 +135,27 @@
       </div>
   </div>
           <!-- one popup start -->
-          <div id="step5" class="step hidden">
-            <h1 class="text-center">Are you currently insured?</h1>
-            <div class="text-center">
-              <button class="btn btn-outline-primary insured-button" data-value="insured">Yes</button><br>
-              <button class="btn btn-outline-primary insured-button mx-2" data-value="notinsured">No</button>
-            </div>
+       <div id="step5" class="step hidden">
+ <div class="insurance">
+  <h1 class="text-center">Are you currently insured?</h1>
+  <div class="text-center">
+    <button class="btn btn-outline-primary insured-button" data-value="yes">Yes</button><br>
+    <button class="btn btn-outline-primary insured-button mx-2" data-value="no">No</button>
+  </div>
+ </div>
+  <div id="insuranceCompanySelection" class="mt-3 hidden">
+    <h2>Select your insurance company</h2>
+    <select id="insuranceCompany" class="form-control">
+      <option value="statefarm">STATEFARM</option>
+      <option value="allstate">ALLSTATE</option>
+      <option value="liberty">LIBERTY</option>
+      <option value="nationwide">NATIONWIDE</option>
+      <option value="farmers">FARMERS</option>
+      <option value="other">OTHER</option>
+    </select>
+  </div>
+</div>
 
-          </div>
   
         <div id="loading" style="display: none;">
           <div class="loadingContainer">
@@ -156,14 +169,14 @@
           <h1 class="mb-4 text-center font-weight-bold" style="color: #65a30d;">Congratulations, you are eligible!</h1>
           <div class="text-center mx-auto">
             <h2><strong>You are prequalified for a $41 a month full coverage plan.</strong></h2>
-            <h4 style="color: red; font-weight: bold;">You must call now to claim your spot</h4>
+            <h4 class="pt-3 pb-3" style="color: red; font-weight: bold;">You must call now to claim your spot</h4>
             <h3 class="font-weight-bold">Tap to call now</h3>
             <div style="display: none;">
             <p>Your ZIP Code: <span id="displayZip"></span></p>
             <p>Your Birthdate: <span id="displayBirthdate"></span></p>
             <p>Your Age: <span id="displayAge"></span></p>
           </div>
-            <a id="redirectButton" href="tel:(+1) 844-705-1099" class="btn">(+1) 844-705-1099
+            <a id="redirectButton" href="tel:+18447051099" class="btn">+1844-705-1099
           </a>
             <div id="timer" style="color: red; font-weight: bold; font-size:22px !important;">01:30</div>
             <br />
