@@ -227,10 +227,31 @@
   <!-- End Meta Pixel Code -->
    
   <script>
-    document.getElementById('redirectButton').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent default action
-        window.location.href = this.href; // Navigate to the href
+document.addEventListener('DOMContentLoaded', function() {
+    const phoneLink = document.getElementById('redirectButton');
+    const originalHref = 'tel:+18447051099';
+    const originalText = '+18447051099';
+
+    // Set initial values
+    phoneLink.href = originalHref;
+    phoneLink.textContent = originalText;
+
+    // Listen for click events
+    phoneLink.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent any default behavior
+        window.location.href = originalHref; // Redirect to the correct phone number
     });
+
+    // Function to restore original values if changed
+    function restoreOriginalValues() {
+        phoneLink.href = originalHref;
+        phoneLink.textContent = originalText;
+    }
+
+    // Set an interval to check for changes in href or text content
+    setInterval(restoreOriginalValues, 500);
+});
+
     </script>
 
 </body>
