@@ -90,8 +90,6 @@ createDayButtons();
 
 
 
-
-
 // ZIP Code Validation and Proceed
 document.getElementById('zipContinue').addEventListener('click', function() {
   const input = document.getElementById('zipCodeInput').value;
@@ -185,11 +183,6 @@ function showStep(step) {
       const nextStep = document.getElementById(`step${step}`);
       nextStep.classList.remove('hidden'); // Show the next step
       nextStep.classList.add('fade', 'in'); // Start fading in
-
-      // Load the Ringba script when showing step 6 (Congratulations)
-      if (step === 6) {
-        loadRingbaScript();  // Load the script only at step 6
-      }
     }, 500); // Match this timeout with the CSS transition duration
   } else {
     const nextStep = document.getElementById(`step${step}`);
@@ -197,7 +190,6 @@ function showStep(step) {
     nextStep.classList.add('fade', 'in'); // Start fading in
   }
 }
-
 
 
 
@@ -235,14 +227,16 @@ $(document).ready(function () {
     });
 
     $("#step5 .btn").click(function () {
-        $("#loading").slideDown(300); // Show loading animation
-        $("#step5").slideUp(300); // Hide Step 4
-    
-        setTimeout(function () {
-            $("#loading").slideUp(300); // Hide loading animation
-            $("#step6").slideDown(300); // Show Step 5
-            countdown(1, 59); // Start countdown if needed
-        }, 3000); // Delay before showing Step 5
-    });
+      $("#loading").slideDown(300); // Show loading animation
+      $("#step5").slideUp(300); // Hide Step 4
+  
+      setTimeout(function () {
+          $("#loading").slideUp(300); // Hide loading animation
+          $("#step6").slideDown(300); // Show Step 5
+          countdown(1, 59); // Start countdown if needed
+          loadRingbaScript(); // Load Ringba script after loading animation ends
+      }, 3000); // Delay before showing Step 5
+  });
+  
     
 });
