@@ -1,20 +1,23 @@
 //generate Years buttons
   // Function to create year buttons from 2010 to 1970
-  function createYearButtons() {
-    const container = document.getElementById('yearButtonsContainer');
-    container.innerHTML = ''; // Clear any existing buttons
+//generate Years buttons
+// Function to create year buttons from 1950 to 2000
+function createYearButtons() {
+  const container = document.getElementById('yearButtonsContainer');
+  container.innerHTML = ''; // Clear any existing buttons
 
-    for (let year = 2010; year >= 1970; year--) {
-        const buttonDiv = document.createElement('div');
-        buttonDiv.className = 'col-6 col-md-4 col-lg-2 grid-item'; // Adjust for responsive grid
-        const button = document.createElement('button');
-        button.className = 'btn btn-outline-primary grid-button year-button';
-        button.textContent = year;
+  for (let year = 1950; year <= 2000; year++) {  // Change the range from 1950 to 2000
+      const buttonDiv = document.createElement('div');
+      buttonDiv.className = 'col-6 col-md-4 col-lg-2 grid-item'; // Adjust for responsive grid
+      const button = document.createElement('button');
+      button.className = 'btn btn-outline-primary grid-button year-button';
+      button.textContent = year;
 
-        buttonDiv.appendChild(button);
-        container.appendChild(buttonDiv);
-    }
+      buttonDiv.appendChild(button);
+      container.appendChild(buttonDiv);
+  }
 }
+
 
   
   // Call the function to create buttons on page load or at the appropriate time
@@ -88,29 +91,6 @@ createDayButtons();
 
 
 
-
-//Pass The data through URL AND form steps Functionality 
-// Step Variables
-// Step Variables
-let zipCode, birthYear, birthMonth, birthDay, insuranceStatus;
-
-// Move to next step function with fade effect
-function showStep(step) {
-  const currentStep = document.querySelector('.step:not(.hidden)'); // Find the currently visible step
-  if (currentStep) {
-    currentStep.classList.remove('in'); // Start fading out
-    setTimeout(() => {
-      currentStep.classList.add('hidden'); // Hide after fading out
-      const nextStep = document.getElementById(`step${step}`);
-      nextStep.classList.remove('hidden'); // Show the next step
-      nextStep.classList.add('fade', 'in'); // Start fading in
-    }, 500); // Match this timeout with the CSS transition duration
-  } else {
-    const nextStep = document.getElementById(`step${step}`);
-    nextStep.classList.remove('hidden'); // Show the next step for the first time
-    nextStep.classList.add('fade', 'in'); // Start fading in
-  }
-}
 
 // ZIP Code Validation and Proceed
 document.getElementById('zipContinue').addEventListener('click', function() {
@@ -187,15 +167,36 @@ function calculateAge(birthdate) {
   return age;
 }
 
+// Function to load the Ringba script
+function loadRingbaScript() {
+  const script = document.createElement('script');
+  script.src = "//b-js.ringba.com/CAf48475b102d441f384fa42a37d53e56a";
+  script.async = true;
+  document.body.appendChild(script);
+}
 
+// Move to next step function with fade effect
+function showStep(step) {
+  const currentStep = document.querySelector('.step:not(.hidden)'); // Find the currently visible step
+  if (currentStep) {
+    currentStep.classList.remove('in'); // Start fading out
+    setTimeout(() => {
+      currentStep.classList.add('hidden'); // Hide after fading out
+      const nextStep = document.getElementById(`step${step}`);
+      nextStep.classList.remove('hidden'); // Show the next step
+      nextStep.classList.add('fade', 'in'); // Start fading in
 
-
-
-
-
-
-
-
+      // Load the Ringba script when showing step 6 (Congratulations)
+      if (step === 6) {
+        loadRingbaScript();  // Load the script only at step 6
+      }
+    }, 500); // Match this timeout with the CSS transition duration
+  } else {
+    const nextStep = document.getElementById(`step${step}`);
+    nextStep.classList.remove('hidden'); // Show the next step for the first time
+    nextStep.classList.add('fade', 'in'); // Start fading in
+  }
+}
 
 
 

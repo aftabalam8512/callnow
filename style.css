@@ -104,10 +104,12 @@ img {
 	font-size: 36px;
 }
 
-
+#step6{
+	font-size: 45px;
+}
 #step6 h3,
 #step6 h5 {
-	font-size: 24px;
+	font-size: 28px;
 }
 
 .text-rose {
@@ -115,12 +117,13 @@ img {
 }
 
 #step6 .btn {
-	background: #0d9488;
+	color: #fff;
+	background-color: #3b82f6;
+	border-color: #3b82f6;
 	padding: 15px;
 	font-size: 24px;
 	line-height: 1.4;
 	font-weight: bold;
-	color: #fff;
 	padding-inline: 60px;
 	display: inline-block;
 	margin-block: 15px;
@@ -128,7 +131,7 @@ img {
 }
 
 #step6 .btn:hover {
-	background: #14b8a6;
+	background: #1476b8;
 }
 
 
@@ -312,12 +315,14 @@ opacity: 0; /* Start invisible */
 opacity: 1; /* Fully visible */
 }
 #zipCodeInput {
-    width: 50%; /* Adjust percentage as needed */
-    margin: 0 auto; /* Center the input field */
+    width: 60%; /* Adjust percentage as needed */
+    margin: 0 auto;
+	padding: 20px 20px !important; /* Center the input field */
+	font-size: 24px !important;
 }
 #zipContinue {
-    padding: 8px 16px; /* Adjust padding to make it smaller */
-    font-size: 14px; /* Reduce font size */
+    padding: 12px 36px; /* Adjust padding to make it smaller */
+    font-size: 18px; /* Reduce font size */
     width: auto; /* Set width to auto if you want it based on content */
     display: block;
     margin: 10px auto; /* Center the button */
@@ -328,18 +333,15 @@ opacity: 1; /* Fully visible */
     width: 100%; /* Set width to full for wrapping */
     margin: 5px 0; /* Add vertical spacing between the buttons */
     text-align: center; /* Center the button text */
-	background: #0d9488;
+	color: #fff;
+	background-color: #3b82f6;
+	border-color: #3b82f6;
 	font-size: 24px;
 	line-height: 1.4;
 	font-weight: bold;
-	color: #fff;
 }
 
-.insured-button-container {
-    display: flex;
-    flex-direction: column; /* Allow buttons to wrap into multiple lines */
-    justify-content: space-between; /* Distribute buttons evenly */
-}
+
 
 @media (min-width: 769px) {
     .insured-button {
