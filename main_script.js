@@ -149,7 +149,7 @@ function displayResults() {
 
   // Update insurance status in URL
   if (insuranceStatus === 'no') {
-    currentUrl.searchParams.set('is_insured', 'UNKOWN');
+    currentUrl.searchParams.set('is_insured', 'UNKNOWN');
   } else if (insuranceStatus === 'yes' && selectedCompany) {
     currentUrl.searchParams.set('is_insured', 'OTHER');
     currentUrl.searchParams.set('insurance_company', selectedCompany); // Add selected insurance company
