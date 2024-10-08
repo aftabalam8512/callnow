@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -9,89 +10,89 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="style.css" />
 
- 
+
   <script type="text/javascript" src="https://go.thisuseful.com/track.js?rtkcmpid=66f1d12158a0ebebe891ea33"></script>
-  
+
 
 
   <script type="text/javascript">
 
-  (function() {
-    // Store the original open and send methods
-    const originalOpen = XMLHttpRequest.prototype.open;
-    const originalSend = XMLHttpRequest.prototype.send;
+    (function () {
+      // Store the original open and send methods
+      const originalOpen = XMLHttpRequest.prototype.open;
+      const originalSend = XMLHttpRequest.prototype.send;
 
-    // Variable to hold the URL
-    let requestURL;
-   const url = new URL('https://mysite202.com/path-test/?test=24324234243');
-        
-     window.modifiedUrl = url.toString();
-     window.modifiedCleanUrl = url.origin + url.pathname;
-     window.modifiedPathName = url.pathname;
-     window.modifiedHostName = url.hostname;
+      // Variable to hold the URL
+      let requestURL;
+      const url = new URL('https://mysite202.com/path-test/?test=24324234243');
 
-    // Override the open method to capture the URL
-    XMLHttpRequest.prototype.open = function(method, url) {
+      window.modifiedUrl = url.toString();
+      window.modifiedCleanUrl = url.origin + url.pathname;
+      window.modifiedPathName = url.pathname;
+      window.modifiedHostName = url.hostname;
+
+      // Override the open method to capture the URL
+      XMLHttpRequest.prototype.open = function (method, url) {
         requestURL = url;
         originalOpen.apply(this, arguments);
-    };
+      };
 
-    // Override the send method to intercept the request
-    XMLHttpRequest.prototype.send = function(data) {
-    
-    console.log("requestURL: ", requestURL, data);
-    
+      // Override the send method to intercept the request
+      XMLHttpRequest.prototype.send = function (data) {
+
+        console.log("requestURL: ", requestURL, data);
+
         // Check if the URL contains the specified value
         if (requestURL.includes("display.ringba.com")) {
-            console.log("Intercepted HTTP request to https://display.ringba.com/v1/nis: ---444 ", data);
-      
-            if (data) {
-                let new_data = JSON.parse(data);
-  
-        
-        // Check if new_data.Tags or new_data.tags exists and is an array
-                let tagsArray = Array.isArray(new_data.Tags) ? new_data.Tags : 
-                                Array.isArray(new_data.tags) ? new_data.tags : null;
-        
-        if (tagsArray) {
-                    let locationCompleteUrl = tagsArray.find(obj => obj.type === "Location" && obj.completeUrl !== undefined);
-                    if (locationCompleteUrl) {    
-                        locationCompleteUrl.completeUrl = window.modifiedUrl;
-                    }
-                    
-                    let locationCleanUrl = tagsArray.find(obj => obj.type === "Location" && obj.cleanUrl !== undefined);
-                    if (locationCleanUrl) {
-                        locationCleanUrl.cleanUrl = window.modifiedCleanUrl;
-                    }    
-                    
-                    let locationPathName = tagsArray.find(obj => obj.type === "Location" && obj.pathName !== undefined);
-                    if (locationPathName) {
-                        locationPathName.pathName = window.modifiedPathName;
-                    }
-                        
-                    let locationHostName = tagsArray.find(obj => obj.type === "Location" && obj.hostName !== undefined);
-                    if (locationHostName) {
-                        locationHostName.hostName = window.modifiedHostName;
-                    }
-                } else {
-                    console.warn("Tags or tags is not an array or is undefined.");
-                }
-      
-                originalSend.call(this, JSON.stringify(new_data));
-        
-            } else {
-                originalSend.call(this, data);
-            }
-        } else {
-      
-      console.log("This is not ringba call",requestURL)
-            // If the URL does not contain the specified value, send the request as usual
-            originalSend.call(this, data);
-        }
-    };
-  })();
+          console.log("Intercepted HTTP request to https://display.ringba.com/v1/nis: ---444 ", data);
 
-</script>
+          if (data) {
+            let new_data = JSON.parse(data);
+
+
+            // Check if new_data.Tags or new_data.tags exists and is an array
+            let tagsArray = Array.isArray(new_data.Tags) ? new_data.Tags :
+              Array.isArray(new_data.tags) ? new_data.tags : null;
+
+            if (tagsArray) {
+              let locationCompleteUrl = tagsArray.find(obj => obj.type === "Location" && obj.completeUrl !== undefined);
+              if (locationCompleteUrl) {
+                locationCompleteUrl.completeUrl = window.modifiedUrl;
+              }
+
+              let locationCleanUrl = tagsArray.find(obj => obj.type === "Location" && obj.cleanUrl !== undefined);
+              if (locationCleanUrl) {
+                locationCleanUrl.cleanUrl = window.modifiedCleanUrl;
+              }
+
+              let locationPathName = tagsArray.find(obj => obj.type === "Location" && obj.pathName !== undefined);
+              if (locationPathName) {
+                locationPathName.pathName = window.modifiedPathName;
+              }
+
+              let locationHostName = tagsArray.find(obj => obj.type === "Location" && obj.hostName !== undefined);
+              if (locationHostName) {
+                locationHostName.hostName = window.modifiedHostName;
+              }
+            } else {
+              console.warn("Tags or tags is not an array or is undefined.");
+            }
+
+            originalSend.call(this, JSON.stringify(new_data));
+
+          } else {
+            originalSend.call(this, data);
+          }
+        } else {
+
+          console.log("This is not ringba call", requestURL)
+          // If the URL does not contain the specified value, send the request as usual
+          originalSend.call(this, data);
+        }
+      };
+    })();
+
+  </script>
 </head>
 
 
@@ -103,7 +104,11 @@
       </div>
       <div class="custom-content text-center">
         <div id="step1" class="step">
-          <svg class="mb-4 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path></svg>
+          <svg class="mb-4 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+            <path
+              d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z">
+            </path>
+          </svg>
           <h2 class="mb-4 font-weight-bold text-center">Enter ZIP Code</h2>
           <div class="d-flex flex-column py-2">
             <div class="d-flex flex-column py-2">
@@ -111,56 +116,57 @@
                 <input type="text" id="zipCodeInput" maxlength="5" pattern="\d{5}" placeholder="Enter ZIP Code">
                 <div class="zip--arrow--N7tGR"></div>
                 <button id="zipContinue" class="btn btn-primary">Continue</button>
+              </div>
             </div>
+
           </div>
-          
-        </div>
-        
+
         </div>
         <div id="step2" class="step hidden">
           <h2 class="text-center">Select Birth Year</h2>
           <div class="row" id="yearButtonsContainer">
-              <!-- Year buttons will be added here dynamically -->
+            <!-- Year buttons will be added here dynamically -->
           </div>
-      </div>
-      <div id="step3" class="step hidden">
-        <h2 class="text-center">Select Birth Month</h2>
-        <div class="row" id="monthButtonsContainer">
-            <!-- Month buttons will be added here dynamically -->
         </div>
-    </div>
-    
-    <div id="step4" class="step hidden">
-      <h2 class="text-center">Select Birth Day</h2>
-      <div class="row" id="dayButtonsContainer">
-          <!-- Day buttons will be added here dynamically -->
-      </div>
-  </div>
-          <!-- one popup start -->
-       <div id="step5" class="step hidden">
- <div class="insurance">
-  <h1 class="text-center">Are you currently insured?</h1>
-  <div class="text-center">
-    <button class="btn btn-outline-primary insured-button" data-value="yes">Yes</button>
-  </div>
-  <div class="text-center">
-    <button class="btn btn-outline-primary insured-button " data-value="no">No</button>
-  </div>
- </div>
-  <div id="insuranceCompanySelection" class="mt-3 hidden">
-    <h2>Select your insurance company</h2>
-    <select id="insuranceCompany" class="form-control">
-      <option value="statefarm">STATEFARM</option>
-      <option value="allstate">ALLSTATE</option>
-      <option value="liberty">LIBERTY</option>
-      <option value="nationwide">NATIONWIDE</option>
-      <option value="farmers">FARMERS</option>
-      <option value="other">OTHER</option>
-    </select>
-  </div>
-</div>
+        <div id="step3" class="step hidden">
+          <h2 class="text-center">Select Birth Month</h2>
+          <div class="row" id="monthButtonsContainer">
+            <!-- Month buttons will be added here dynamically -->
+          </div>
+        </div>
 
-  
+        <div id="step4" class="step hidden">
+          <h2 class="text-center">Select Birth Day</h2>
+          <div class="row" id="dayButtonsContainer">
+            <!-- Day buttons will be added here dynamically -->
+          </div>
+        </div>
+        <!-- one popup start -->
+        <div id="step5" class="step hidden">
+          <div class="insurance">
+            <h1 class="text-center">Are you currently insured?</h1>
+            <div class="text-center">
+              <button class="btn btn-outline-primary insured-button" data-value="yes">Yes</button>
+            </div>
+            <div class="text-center">
+              <button class="btn btn-outline-primary insured-button " data-value="no">No</button>
+            </div>
+          </div>
+          <div id="insuranceCompanySelection" class="mt-3 hidden">
+            <h2>Select your insurance company</h2>
+            <select id="insuranceCompany" class="form-control">
+              <option value="">Select</option>
+              <option value="STATEFARM">STATEFARM</option>
+              <option value="ALLSTATE">ALLSTATE</option>
+              <option value="LIBERTY">LIBERTY</option>
+              <option value="NATIONWIDE">NATIONWIDE</option>
+              <option value="FARMERS">FARMERS</option>
+              <option value="OTHER">OTHER</option>
+            </select>
+          </div>
+        </div>
+
+
         <div id="loading" style="display: none;">
           <div class="loadingContainer">
             <div class="ball ball1"></div>
@@ -176,16 +182,16 @@
             <h4 class="pt-3 pb-3" style="color: red; font-weight: bold;">You must call now to claim your spot</h4>
             <h3 class="font-weight-bold">Tap to call now</h3>
             <div style="display: none;">
-            <p>Your ZIP Code: <span id="displayZip"></span></p>
-            <p>Your Birthdate: <span id="displayBirthdate"></span></p>
-            <p>Your Age: <span id="displayAge"></span></p>
-          </div>
+              <p>Your ZIP Code: <span id="displayZip"></span></p>
+              <p>Your Birthdate: <span id="displayBirthdate"></span></p>
+              <p>Your Age: <span id="displayAge"></span></p>
+            </div>
             <a id="redirectButton" href="tel:+18447051099" class="btn">+1844-705-1099
-          </a>
+            </a>
             <div id="timer" style="color: red; font-weight: bold; font-size:22px !important;">01:30</div>
             <br />
           </div>
-        </div>        
+        </div>
       </div>
     </div>
   </main>
@@ -214,36 +220,38 @@
 
   <script>
     (window._rgba_tags = (window._rgba_tags || [])).push({ type: "User", track_attempted: "yes" });
-      var intervalId = setInterval(() => {
+    var intervalId = setInterval(() => {
       if (window.rtkClickID != undefined) {
-       (window._rgba_tags = (window._rgba_tags || [])).push({ type: "User", clickid: window.rtkClickID });
-       console.log("Just ran the rtkClickID script to add Ringba tags: ", window.rtkClickID);
-       clearInterval(intervalId);
+        (window._rgba_tags = (window._rgba_tags || [])).push({ type: "User", clickid: window.rtkClickID });
+        console.log("Just ran the rtkClickID script to add Ringba tags: ", window.rtkClickID);
+        clearInterval(intervalId);
       } else {
-       console.log("rtkcid not defined yet");
+        console.log("rtkcid not defined yet");
       }
     }, 500);
-    </script>
+  </script>
 
 
-<!-- Meta Pixel Code -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1574697503425906');
-  fbq('track', 'PageView');
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1574697503425906');
+    fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1574697503425906&ev=PageView&noscript=1"
-  /></noscript>
+      src="https://www.facebook.com/tr?id=1574697503425906&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
-   
+
 
 
 </body>
