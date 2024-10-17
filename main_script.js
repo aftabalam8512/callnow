@@ -149,7 +149,7 @@ function displayResults() {
 
   // Update insurance status in URL
   if (insuranceStatus === 'no') {
-    currentUrl.searchParams.set('is_insured', 'UNKNOWN');
+    currentUrl.searchParams.set('is_insured', 'UNKOWN');
   } else if (insuranceStatus === 'yes' && selectedCompany) {
     currentUrl.searchParams.set('is_insured', 'OTHER');
     currentUrl.searchParams.set('insurance_company', selectedCompany); // Add selected insurance company
@@ -169,45 +169,6 @@ function calculateAge(birthdate) {
   return age;
 }
 
-// Handle Yes and No Buttons for Insurance Selection
-$("#step5 .btn").click(function () {
-  const selectedValue = $(this).attr("data-value");
-  insuranceStatus = selectedValue; // Set the insurance status
-
-  if (selectedValue === "no") {
-    displayResults(); // Update URL with 'no' insurance status
-    $("#loading").slideDown(300); // Show loading animation
-    $("#step5").slideUp(300); // Hide Step 5
-
-    setTimeout(function () {
-      $("#loading").slideUp(300); // Hide loading animation
-      $("#step6").slideDown(300); // Show Step 6
-      countdown(1, 59); // Start countdown if needed
-      loadRingbaScript(); // Load Ringba script after loading animation ends
-    }, 3000); // Delay before showing Step 6
-
-  } else if (selectedValue === "yes") {
-    $(".insurance").hide();
-    $("#insuranceCompanySelection").slideDown(300); // Show the insurance select field
-  }
-});
-
-// Handle Insurance Company Selection (only if "Yes" is selected)
-$("#insuranceCompany").change(function () {
-  selectedCompany = $(this).val();
-  insuranceStatus = 'yes'; // Set insurance status to yes
-  displayResults(); // Update URL with 'yes' insurance status and company
-
-  $("#loading").slideDown(300); // Show loading animation
-  $("#step5").slideUp(300); // Hide Step 5
-
-  setTimeout(function () {
-    $("#loading").slideUp(300); // Hide loading animation
-    $("#step6").slideDown(300); // Show Step 6
-    countdown(1, 59); // Start countdown if needed
-    loadRingbaScript(); // Load Ringba script after loading animation ends
-  }, 3000); // Delay before showing Step 6
-});
 
 // Function to load the Ringba script
 function loadRingbaScript() {
@@ -270,53 +231,100 @@ $(document).ready(function () {
   });
 
   // Handle Yes and No Buttons for Insurance Selection
-  $("#step5 .btn").click(function () {
-    const selectedValue = $(this).attr("data-value");
+$("#step5 .btn").click(function () {
+  const selectedValue = $(this).attr("data-value");
+  insuranceStatus = selectedValue; // Set the insurance status
 
-    // Set the insurance status
-    insuranceStatus = selectedValue;
+  // Display loading screen with messages when either button is clicked
+  function showLoaderAndProceed() {
+      const messages = [
+          "Processing...",
+          "Confirming eligibility in your area...",
+          "Generating your personalized quote...",
+          "Searching for the best rates...",
+          "Analyzing your eligibility for discounts...",
+          "Securing spot with personal agent..."
+      ];
 
-    // Check if the user selected "No"
-    if (selectedValue === "no") {
-      // Send both "no" selection and insurance status
-      displayResults(); // Update URL with 'no' insurance status
+      let currentIndex = 0;
 
-      // Move directly to the next step if "No" is selected
+      // Function to rotate the loader text
+      function rotateText() {
+          if (currentIndex < messages.length) {
+              $("#loaderText").text(messages[currentIndex]);
+              currentIndex++;
+              setTimeout(rotateText, 1500); // Change every 2 seconds
+          } else {
+              // Once all messages are shown, hide loading and proceed
+              setTimeout(function () {
+                  $("#loading").slideUp(300);  // Hide loader
+                  $("#step6").slideDown(300);  // Show next step
+                  countdown(1, 59);            // Start countdown if needed
+                  loadRingbaScript();          // Load additional script
+              }, 1000); // Delay before proceeding
+          }
+      }
+
       $("#loading").slideDown(300); // Show loading animation
-      $("#step5").slideUp(300); // Hide Step 5
+      rotateText(); // Start rotating messages
+  }
 
+  if (selectedValue === "no") {
+      // Handle the 'No' insurance option
+      displayResults();  // Update URL with 'no' insurance status
+      $("#step5").slideUp(300);  // Hide Step 5
       setTimeout(function () {
-        $("#loading").slideUp(300); // Hide loading animation
-        $("#step6").slideDown(300); // Show Step 6
-        countdown(1, 59); // Start countdown if needed
-        loadRingbaScript(); // Load Ringba script after loading animation ends
-      }, 3000); // Delay before showing Step 6
+          showLoaderAndProceed(); // Show loader and proceed to the next step
+      }, 300); // Delay before showing Step 6
 
-    } else if (selectedValue === "yes") {
-      // Show the insurance company select field for "Yes"
-      $("#insuranceCompanySelection").slideDown(300); // Show the insurance select field
-    }
-  });
+  } else if (selectedValue === "yes") {
+    $(".insurance").hide();
+    $("#insuranceCompanySelection").slideDown(300); // Show the insurance select field
+  }
+});
 
-  // Handle Insurance Company Selection (only if "Yes" is selected)
-  $("#insuranceCompany").change(function () {
-    const selectedCompany = $(this).val();
-    insuranceStatus = selectedCompany; // Update the insurance status with the selected company
+// Handle Insurance Company Selection (only if "Yes" is selected)
+$("#insuranceCompany").change(function () {
+  selectedCompany = $(this).val();  // Get the selected company
+  insuranceStatus = 'yes';  // Set insurance status to 'yes'
+  displayResults();  // Update URL with 'yes' insurance status and selected company
+  $("#step5").slideUp(300);  // Hide Step 5
+  showLoaderAndProceed();  // Show loader and proceed
+});
 
-    // Send the selected insurance company along with 'yes' status
-    displayResults(); // Update URL with 'yes' insurance status and company
+// Function to handle loader and rotating text logic
+function showLoaderAndProceed() {
+  const messages = [
+      "Processing...",
+      "Confirming eligibility in your area...",
+      "Generating your personalized quote...",
+      "Searching for the best rates...",
+      "Analyzing your eligibility for discounts...",
+      "Securing spot with personal agent...",
+  ];
 
-    // Continue to the next step after selecting the insurance company
-    $("#loading").slideDown(300); // Show loading animation
-    $("#step5").slideUp(300); // Hide Step 5
+  let currentIndex = 0;
 
-    setTimeout(function () {
-      $("#loading").slideUp(300); // Hide loading animation
-      $("#step6").slideDown(300); // Show Step 6
-      countdown(1, 59); // Start countdown if needed
-      loadRingbaScript(); // Load Ringba script after loading animation ends
-    }, 3000); // Delay before showing Step 6
-  });
+  // Function to rotate the loader text
+  function rotateText() {
+      if (currentIndex < messages.length) {
+          $("#loaderText").text(messages[currentIndex]);
+          currentIndex++;
+          setTimeout(rotateText, 1500); // Change every 2 seconds
+      } else {
+          // Once all messages are shown, hide loading and proceed
+          setTimeout(function () {
+              $("#loading").slideUp(300);  // Hide loader
+              $("#step6").slideDown(300);  // Show next step
+              countdown(1, 59);            // Start countdown if needed
+              loadRingbaScript();          // Load additional script
+          }, 1000); // Delay before proceeding
+      }
+  }
+
+  $("#loading").slideDown(300); // Show loading animation
+  rotateText(); // Start rotating messages
+}
 
 
 

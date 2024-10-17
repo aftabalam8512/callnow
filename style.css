@@ -65,37 +65,50 @@ svg {
 }
 
 .loadingContainer {
+	position: relative;
 	text-align: center;
-	padding-block: 20px;
 }
 
-.loadingContainer .ball {
-	display: inline-block;
-	height: 20px;
-	width: 20px;
-	border-radius: 50%;
-	margin: 0 3px;
-	background: #d74b46;
-	z-index: 1;
-	animation: bounce 1.5s infinite ease-in-out;
-	-moz-animation: bounce 1.5s infinite ease-in-out;
-	-webkit-animation: bounce 1.5s infinite ease-in-out;
+.loader-text {
+	font-size: 16px;
+	margin-bottom: 15px;
+	color: #000;
+	animation: fadeText 6s linear infinite;
 }
 
-.loadingContainer .ball2 {
-	-webkit-animation-delay: 0.25s;
-	animation-delay: 0.25s;
-}
+.loader {
+	width: 50px;
+	aspect-ratio: 1;
+	display:grid;
+	-webkit-mask: conic-gradient(from 15deg,#0000,#000);
+	animation: l26 1s infinite steps(12);
+	text-align: center;
+  }
+  .loader,
+  .loader:before,
+  .loader:after{
+	background:
+	  radial-gradient(closest-side at 50% 12.5%,
+	  #036 96%,#0000) 50% 0/20% 80% repeat-y,
+	  radial-gradient(closest-side at 12.5% 50%,
+	  #036 96%,#0000) 0 50%/80% 20% repeat-x;
+  }
+  .loader:before,
+  .loader:after {
+	content: "";
+	grid-area: 1/1;
+	transform: rotate(30deg);
+  }
+  .loader:after {
+	transform: rotate(60deg);
+  }
+  
+  @keyframes l26 {
+	100% {transform:rotate(1turn)}
+  }
 
-.loadingContainer .ball3 {
-	-webkit-animation-delay: 0.5s;
-	animation-delay: 0.5s;
-}
 
-.loadingContainer .ball4 {
-	-webkit-animation-delay: 0.75s;
-	animation-delay: 0.75s;
-}
+  
 
 .custom-content .btn {
 	max-width: 640px;
