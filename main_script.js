@@ -203,7 +203,8 @@ function showLoaderAndProceed() {
           }
             // Apply a 3-second delay for specific messages
             if (messages[currentIndex] === "1 Agent Available...") {
-              delay = 2000; // 3-second delay for these specific messages
+              $(".loader").css('display', 'none'); // Hide the loader
+              delay = 1000; // 3-second delay for these specific messages
           }
 
           currentIndex++;
