@@ -183,9 +183,9 @@ function showLoaderAndProceed() {
       "Searching for the best rates...",
       "Analyzing your eligibility for discounts...",
       "Securing spot with personal agent...",
-      "Finding An Agent...",
+      "Finding an Agent...",
       "Found Agent...",
-      "1 Agent Available..."
+      "[01] Agent Available..."
   ];
 
   let currentIndex = 0;
@@ -202,7 +202,7 @@ function showLoaderAndProceed() {
               delay = 5000; // 3-second delay for these specific messages
           }
             // Apply a 3-second delay for specific messages
-            if (messages[currentIndex] === "1 Agent Available...") {
+            if (messages[currentIndex] === "[01] Agent Available...") {
               $(".loader").css('display', 'none'); // Hide the loader
               delay = 1000; // 3-second delay for these specific messages
           }
