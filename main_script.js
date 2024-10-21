@@ -1,89 +1,8 @@
 // Variables to hold user input
 let zipCode = '';
-let birthYear = '';
-let birthMonth = '';
-let birthDay = '';
+let birthDate = '';
 let insuranceStatus = '';
-let selectedCompany = ''; // To hold the insurance company when 'yes' is selected
-let selectedCountry = ''; // Assuming you have a variable for country selection
-
-
-// Function to create year buttons from 1950 to 2000
-function createYearButtons() {
-  const container = document.getElementById('yearButtonsContainer');
-  container.innerHTML = ''; // Clear any existing buttons
-
-  for (let year = 1950; year <= 2000; year++) {  // Change the range from 1950 to 2000
-    const buttonDiv = document.createElement('div');
-    buttonDiv.className = 'col-6 col-md-4 col-lg-2 grid-item'; // Adjust for responsive grid
-    const button = document.createElement('button');
-    button.className = 'btn btn-outline-primary grid-button year-button';
-    button.textContent = year;
-
-    buttonDiv.appendChild(button);
-    container.appendChild(buttonDiv);
-  }
-}
-
-// Call the function to create buttons on page load or at the appropriate time
-createYearButtons();
-
-// Function to create month buttons from January to December
-function createMonthButtons() {
-  const container = document.getElementById('monthButtonsContainer');
-  container.innerHTML = ''; // Clear any existing buttons
-
-  const months = [
-    { name: 'January', value: 1 },
-    { name: 'February', value: 2 },
-    { name: 'March', value: 3 },
-    { name: 'April', value: 4 },
-    { name: 'May', value: 5 },
-    { name: 'June', value: 6 },
-    { name: 'July', value: 7 },
-    { name: 'August', value: 8 },
-    { name: 'September', value: 9 },
-    { name: 'October', value: 10 },
-    { name: 'November', value: 11 },
-    { name: 'December', value: 12 },
-  ];
-
-  months.forEach(month => {
-    const buttonDiv = document.createElement('div');
-    buttonDiv.className = 'col-6 col-md-4 col-lg-3 grid-item';
-    const button = document.createElement('button');
-    button.className = 'btn btn-outline-primary grid-button month-button';
-    button.textContent = month.name;
-    button.setAttribute('data-value', month.value);
-
-    buttonDiv.appendChild(button);
-    container.appendChild(buttonDiv);
-  });
-}
-
-// Call the function to create buttons on page load or at the appropriate time
-createMonthButtons();
-
-// Function to create day buttons from 1 to 31
-function createDayButtons() {
-  const container = document.getElementById('dayButtonsContainer');
-  container.innerHTML = ''; // Clear any existing buttons
-
-  for (let day = 1; day <= 31; day++) {
-    const buttonDiv = document.createElement('div');
-    buttonDiv.className = 'col-6 col-md-4 col-lg-2 grid-item';
-    const button = document.createElement('button');
-    button.className = 'btn btn-outline-primary grid-button day-button';
-    button.textContent = day;
-
-    buttonDiv.appendChild(button);
-    container.appendChild(buttonDiv);
-  }
-}
-
-// Call the function to create buttons on page load or at the appropriate time
-createDayButtons();
-
+let selectedCompany = '';
 
 // ZIP Code Validation and Proceed
 document.getElementById('zipCodeInput').addEventListener('input', function (event) {
@@ -103,53 +22,52 @@ document.getElementById('zipContinue').addEventListener('click', function () {
   const input = document.getElementById('zipCodeInput').value;
   if (input.length === 5 && /^\d{5}$/.test(input)) {
     zipCode = input;
-    showStep(2);  // Move to year selection
+    showStep(2);  // Move to birthdate selection step
   } else {
     alert("Please enter a valid 5-digit ZIP code");
   }
 });
 
-
-
-// Bind event listeners to year, month, and day buttons dynamically after they are created
-document.addEventListener('click', function (event) {
-  if (event.target.classList.contains('year-button')) {
-    birthYear = event.target.textContent;
-    showStep(3);  // Move to month selection
-  }
-
-  if (event.target.classList.contains('month-button')) {
-    birthMonth = event.target.getAttribute('data-value');
-    showStep(4);  // Move to day selection
-  }
-
-  if (event.target.classList.contains('day-button')) {
-    birthDay = event.target.textContent;
-    showStep(5);  // Move to insurance selection
+// Birthdate Validation and Proceed
+document.getElementById('birthDateContinue').addEventListener('click', function () {
+  const birthDateInput = document.getElementById('birthDateInput').value;
+  if (birthDateInput) {
+    birthDate = birthDateInput;
+    showStep(3);  // Move to the insurance selection step
+  } else {
+    alert("Please select your birth date");
   }
 });
 
-// Final Display and Age Calculation
+// Show the next step with fade effect
+function showStep(step) {
+  const currentStep = document.querySelector('.step:not(.hidden)');  // Find the currently visible step
+  if (currentStep) {
+    currentStep.classList.add('hidden');  // Hide the current step
+  }
+  const nextStep = document.getElementById(`step${step}`);  // Find the next step
+  if (nextStep) {
+    nextStep.classList.remove('hidden');  // Show the next step
+  }
+}
+
+// Final Display and Age Calculation (unchanged)
 function displayResults() {
-  // Format the birthdate in YYYY-MM-DD format
-  const formattedMonth = String(birthMonth).padStart(2, '0'); // Ensure month is two digits
-  const formattedDay = String(birthDay).padStart(2, '0'); // Ensure day is two digits
-  const birthdate = `${birthYear}-${formattedMonth}-${formattedDay}`;
-  const age = calculateAge(new Date(birthdate));
+  const age = calculateAge(new Date(birthDate));
 
   document.getElementById('displayZip').textContent = zipCode;
-  document.getElementById('displayBirthdate').textContent = birthdate; // Display in YYYY-MM-DD
+  document.getElementById('displayBirthdate').textContent = birthDate; // Display in YYYY-MM-DD
   document.getElementById('displayAge').textContent = age;
 
   // Update URL with the data
   const currentUrl = new URL(window.location.href);
   currentUrl.searchParams.set('zipcode', zipCode);
-  currentUrl.searchParams.set('birth_date', birthdate); // Update to include birthdate
+  currentUrl.searchParams.set('birth_date', birthDate); // Update to include birthdate
   currentUrl.searchParams.set('age', age);
 
   // Update insurance status in URL
   if (insuranceStatus === 'no') {
-    currentUrl.searchParams.set('is_insured', 'UNKOWN');
+    currentUrl.searchParams.set('is_insured', 'UNKNOWN');
   } else if (insuranceStatus === 'yes' && selectedCompany) {
     currentUrl.searchParams.set('is_insured', 'OTHER');
     currentUrl.searchParams.set('insurance_company', selectedCompany); // Add selected insurance company
@@ -168,6 +86,7 @@ function calculateAge(birthdate) {
   }
   return age;
 }
+
 
 
 // Function to load the Ringba script
@@ -195,9 +114,6 @@ function showStep(step) {
     nextStep.classList.add('fade', 'in'); // Start fading in
   }
 }
-
-
-
 
 $(document).ready(function () {
 
@@ -231,48 +147,14 @@ $(document).ready(function () {
   });
 
   // Handle Yes and No Buttons for Insurance Selection
-$("#step5 .btn").click(function () {
+$("#step3 .btn").click(function () {
   const selectedValue = $(this).attr("data-value");
   insuranceStatus = selectedValue; // Set the insurance status
-
-  // Display loading screen with messages when either button is clicked
-  function showLoaderAndProceed() {
-      const messages = [
-          "Processing...",
-          "Confirming eligibility in your area...",
-          "Generating your personalized quote...",
-          "Searching for the best rates...",
-          "Analyzing your eligibility for discounts...",
-          "Securing spot with personal agent..."
-      ];
-
-      let currentIndex = 0;
-
-      // Function to rotate the loader text
-      function rotateText() {
-          if (currentIndex < messages.length) {
-              $("#loaderText").text(messages[currentIndex]);
-              currentIndex++;
-              setTimeout(rotateText, 1500); // Change every 2 seconds
-          } else {
-              // Once all messages are shown, hide loading and proceed
-              setTimeout(function () {
-                  $("#loading").slideUp(300);  // Hide loader
-                  $("#step6").slideDown(300);  // Show next step
-                  countdown(1, 59);            // Start countdown if needed
-                  loadRingbaScript();          // Load additional script
-              }, 1000); // Delay before proceeding
-          }
-      }
-
-      $("#loading").slideDown(300); // Show loading animation
-      rotateText(); // Start rotating messages
-  }
 
   if (selectedValue === "no") {
       // Handle the 'No' insurance option
       displayResults();  // Update URL with 'no' insurance status
-      $("#step5").slideUp(300);  // Hide Step 5
+      $("#step3").slideUp(300);  // Hide Step 5
       setTimeout(function () {
           showLoaderAndProceed(); // Show loader and proceed to the next step
       }, 300); // Delay before showing Step 6
@@ -288,7 +170,7 @@ $("#insuranceCompany").change(function () {
   selectedCompany = $(this).val();  // Get the selected company
   insuranceStatus = 'yes';  // Set insurance status to 'yes'
   displayResults();  // Update URL with 'yes' insurance status and selected company
-  $("#step5").slideUp(300);  // Hide Step 5
+  $("#step3").slideUp(300);  // Hide Step 5
   showLoaderAndProceed();  // Show loader and proceed
 });
 
@@ -301,6 +183,9 @@ function showLoaderAndProceed() {
       "Searching for the best rates...",
       "Analyzing your eligibility for discounts...",
       "Securing spot with personal agent...",
+      "Finding An Agent...",
+      "Found Agent...",
+      "1 Agent Available..."
   ];
 
   let currentIndex = 0;
@@ -309,23 +194,31 @@ function showLoaderAndProceed() {
   function rotateText() {
       if (currentIndex < messages.length) {
           $("#loaderText").text(messages[currentIndex]);
+          
+          let delay = 1500; // Default delay for most messages
+
+          // Apply a 3-second delay for specific messages
+          if (messages[currentIndex] === "Finding An Agent...") {
+              delay = 5000; // 3-second delay for these specific messages
+          }
+            // Apply a 3-second delay for specific messages
+            if (messages[currentIndex] === "1 Agent Available...") {
+              delay = 2000; // 3-second delay for these specific messages
+          }
+
           currentIndex++;
-          setTimeout(rotateText, 1500); // Change every 2 seconds
+          setTimeout(rotateText, delay); // Change text after the specified delay
       } else {
           // Once all messages are shown, hide loading and proceed
           setTimeout(function () {
               $("#loading").slideUp(300);  // Hide loader
-              $("#step6").slideDown(300);  // Show next step
+              $("#step4").slideDown(300);  // Show next step
               countdown(1, 59);            // Start countdown if needed
               loadRingbaScript();          // Load additional script
           }, 1000); // Delay before proceeding
       }
   }
-
   $("#loading").slideDown(300); // Show loading animation
   rotateText(); // Start rotating messages
 }
-
-
-
 });

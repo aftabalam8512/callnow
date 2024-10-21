@@ -94,8 +94,6 @@
 
   </script>
 </head>
-
-
 <body>
   <main class="pt-4">
     <div class="container">
@@ -123,26 +121,17 @@
 
         </div>
         <div id="step2" class="step hidden">
-          <h2 class="text-center">Select Birth Year</h2>
-          <div class="row" id="yearButtonsContainer">
-            <!-- Year buttons will be added here dynamically -->
+          <h2 class="text-center">Select Your Birth Date</h2>
+          <div class="d-flex flex-column py-2">
+            <input type="date" id="birthDateInput" class="form-control" max="2005-12-31" placeholder="MM-DD-YY">
+            <div class="d-flex justify-content-center mt-3">
+              <button id="birthDateContinue" class="btn btn-primary">Continue</button>
+            </div>
           </div>
         </div>
-        <div id="step3" class="step hidden">
-          <h2 class="text-center">Select Birth Month</h2>
-          <div class="row" id="monthButtonsContainer">
-            <!-- Month buttons will be added here dynamically -->
-          </div>
-        </div>
-
-        <div id="step4" class="step hidden">
-          <h2 class="text-center">Select Birth Day</h2>
-          <div class="row" id="dayButtonsContainer">
-            <!-- Day buttons will be added here dynamically -->
-          </div>
-        </div>
+        
         <!-- one popup start -->
-        <div id="step5" class="step hidden">
+        <div id="step3" class="step hidden">
           <div class="insurance">
             <h1 class="text-center">Are you currently insured?</h1>
             <div class="text-center">
@@ -174,16 +163,12 @@
             <div class="loader text-center"></div>
           </div>
         </div>
-        
-        
-        
       
-        <div id="step6" class="step" style="display: none;">
+        <div id="step4" class="step" style="display: none;">
           <h1 class="mb-4 text-center font-weight-bold" style="color: #65a30d;">Congratulations, you are eligible!</h1>
           <div class="text-center mx-auto">
             <h2><strong>You are prequalified for a $41 a month full coverage plan.</strong></h2>
             <h4 class="pt-3 pb-3" style="color: red; font-weight: bold;">You must call now to claim your spot</h4>
-            <p style="font-size: 18;">1 Agent available</p>
             <h3 class="font-weight-bold">Tap to call now</h3>
             <div style="display: none;">
               <p>Your ZIP Code: <span id="displayZip"></span></p>
@@ -255,8 +240,6 @@
   <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=1574697503425906&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
-
-
 
 </body>
 
