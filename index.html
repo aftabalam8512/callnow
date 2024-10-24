@@ -121,14 +121,22 @@
 
         </div>
         <div id="step2" class="step hidden">
-          <h2 class="text-center">Select Your Birth Date</h2>
-          <div class="d-flex flex-column py-2">
-            <input type="date" id="birthDateInput" class="form-control" max="2005-12-31" placeholder="MM-DD-YY">
-            <div class="d-flex justify-content-center mt-3">
-              <button id="birthDateContinue" class="btn btn-primary">Continue</button>
+          <h2 class="text-center">Select Your Age</h2>
+          
+          <div class="container">
+            <div class="row justify-content-center" id="ageButtons">
+              <!-- Age buttons will be generated dynamically here -->
             </div>
           </div>
+        
+          <!-- Back button -->
+          <div class="d-flex justify-content-center mt-3">
+            <button id="birthDateBack" class="btn btn-lg">Back</button>
+          </div>
         </div>
+        
+        
+        
         
         <!-- one popup start -->
         <div id="step3" class="step hidden">
@@ -139,6 +147,9 @@
             </div>
             <div class="text-center">
               <button class="btn btn-outline-primary insured-button " data-value="no">No</button>
+            </div>
+            <div class="text-center mt-3">
+              <button id="insuranceBack" class="btn">Back</button> <!-- Back button -->
             </div>
           </div>
           <div id="insuranceCompanySelection" class="mt-3 hidden">
@@ -203,6 +214,45 @@
   <!-- jQuery CDN -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"
     integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+<script>
+// Dynamically generate buttons for ages 20 to 100
+function generateAgeButtons() {
+  const ageButtonsContainer = document.getElementById('ageButtons');
+  ageButtonsContainer.innerHTML = '';  // Clear any existing buttons
+  
+  for (let age = 100; age >= 20; age--) {  // Loop from 100 down to 20
+    // Create a button element for each age
+    const button = document.createElement('button');
+    button.className = 'btn btn-light age-range-button m-1';  // Bootstrap classes for margin and button
+    button.setAttribute('data-age', age);
+    button.textContent = age;
+
+    // Create a Bootstrap grid wrapper
+    const wrapper = document.createElement('div');
+    wrapper.className = 'col-4 col-md-2 col-lg-1-7 text-center';  // 7 per row on large screens, 3 on mobile
+    wrapper.appendChild(button);
+
+    // Append to the age buttons container
+    ageButtonsContainer.appendChild(wrapper);
+}
+
+
+  // Add event listeners to the dynamically generated buttons
+  document.querySelectorAll('.age-range-button').forEach(button => {
+    button.addEventListener('click', function () {
+      birthDate = this.getAttribute('data-age');  // Capture the selected age
+      showStep(3);  // Move to the next step
+    });
+  });
+}
+
+// Call the function when the age selection step is shown
+document.getElementById('zipContinue').addEventListener('click', function () {
+  generateAgeButtons();  // Generate age buttons when proceeding to step 2
+});
+</script>
+
 
   <!-- Custom JS Script -->
   <script src="main_script.js"></script>

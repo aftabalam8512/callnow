@@ -1,6 +1,8 @@
+
+
 // Variables to hold user input
 let zipCode = '';
-let birthDate = '';
+let birthDate = '';  // Age range will be stored here
 let insuranceStatus = '';
 let selectedCompany = '';
 
@@ -18,25 +20,33 @@ document.getElementById('zipCodeInput').addEventListener('input', function (even
   event.target.value = input;
 });
 
+// Proceed after validating ZIP code
 document.getElementById('zipContinue').addEventListener('click', function () {
   const input = document.getElementById('zipCodeInput').value;
   if (input.length === 5 && /^\d{5}$/.test(input)) {
     zipCode = input;
-    showStep(2);  // Move to birthdate selection step
+    showStep(2);  // Move to age range selection step
   } else {
     alert("Please enter a valid 5-digit ZIP code");
   }
 });
 
-// Birthdate Validation and Proceed
-document.getElementById('birthDateContinue').addEventListener('click', function () {
-  const birthDateInput = document.getElementById('birthDateInput').value;
-  if (birthDateInput) {
-    birthDate = birthDateInput;
-    showStep(3);  // Move to the insurance selection step
-  } else {
-    alert("Please select your birth date");
-  }
+// Back button for age selection (Step 2 to Step 1)
+document.getElementById('birthDateBack').addEventListener('click', function () {
+  showStep(1);  // Move back to the ZIP code step
+});
+
+// Age Range Selection and Proceed
+document.querySelectorAll('.age-range-button').forEach(button => {
+  button.addEventListener('click', function () {
+    birthDate = this.getAttribute('data-age');  // Capture the selected age range
+    showStep(3);  // Move to insurance selection step
+  });
+});
+
+// Back button for insurance selection (Step 3 to Step 2)
+document.getElementById('insuranceBack').addEventListener('click', function () {
+  showStep(2);  // Move back to the age selection step
 });
 
 // Show the next step with fade effect
@@ -53,17 +63,15 @@ function showStep(step) {
 
 // Final Display and Age Calculation (unchanged)
 function displayResults() {
-  const age = calculateAge(new Date(birthDate));
-
+  // Since birthDate is now an age range, no need to calculate age
   document.getElementById('displayZip').textContent = zipCode;
-  document.getElementById('displayBirthdate').textContent = birthDate; // Display in YYYY-MM-DD
-  document.getElementById('displayAge').textContent = age;
+  document.getElementById('displayBirthdate').textContent = birthDate;  // Display age range
+  document.getElementById('displayAge').textContent = birthDate;  // Use the age range for display
 
   // Update URL with the data
   const currentUrl = new URL(window.location.href);
   currentUrl.searchParams.set('zipcode', zipCode);
-  currentUrl.searchParams.set('birth_date', birthDate); // Update to include birthdate
-  currentUrl.searchParams.set('age', age);
+  currentUrl.searchParams.set('age', birthDate);  // Update to include age range
 
   // Update insurance status in URL
   if (insuranceStatus === 'no') {
@@ -73,19 +81,9 @@ function displayResults() {
     currentUrl.searchParams.set('insurance_company', selectedCompany); // Add selected insurance company
   }
 
-  window.history.pushState({}, '', currentUrl); // Update the URL without refreshing the page
+  window.history.pushState({}, '', currentUrl);  // Update the URL without refreshing the page
 }
 
-// Function to Calculate Age
-function calculateAge(birthdate) {
-  const today = new Date();
-  let age = today.getFullYear() - birthdate.getFullYear();
-  const monthDiff = today.getMonth() - birthdate.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
-    age--;
-  }
-  return age;
-}
 
 
 
